@@ -94,12 +94,13 @@ class NeuralNetwork:
 
 for i in range(3):
     NN = NeuralNetwork(inputs, outputs, hidden_nodes=[
-        101, 7], learning_rate=0.1, epochs=30000)
+        137, 3], learning_rate=0.09, epochs=30000)
     NN.train()
 
     for i in range(len(test_inputs)):
         print(NN.predict(test_inputs[i]),
               " -- Correct answer: ", test_outputs[i])
+    print('\n')
 
 
 plt.figure(figsize=(15, 5))
