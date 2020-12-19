@@ -66,18 +66,17 @@ class NeuralNetwork:
 
     def backpropagation(self):
         self.error = self.outputs - self.output_act
-
-        cost3 = self.error * self.sigmoid(self.output_act, deriv=True)
-        actCost2 = np.dot(cost3, self.weights3.T)
-        cost2 = actCost2 * \
-            self.sigmoid(np.dot(self.hidden_act1, self.weights2))
-        actCost1 = np.dot(cost2, self.weights2.T)
-        cost1 = actCost1 * \
-            self.sigmoid(np.dot(inputs+self.bias, self.weights1))
-        self.weights3 += np.dot(self.hidden_act2.T, cost3)*self.learning_rate
-        self.weights2 += np.dot(self.hidden_act1.T, cost2)*self.learning_rate
-        self.weights1 += np.dot(self.inputs.T+self.bias,
-                                cost1)*self.learning_rate
+        weight_delta3 = self.error * self.sigmoid(self.output_act, deriv=True)
+        self.weights3 += np.dot(self.hidden_act2.T, weight_delta3
+                                ) * self.learning_rate
+        error2 = weight_delta3 * self.weights3.T
+        weight_delta2 = error2 * self.sigmoid(self.hidden_act2, deriv=True)
+        self.weights2 += np.dot(self.hidden_act1.T,
+                                weight_delta2) * self.learning_rate
+        error1 = np.dot(weight_delta2, self.weights2.T)
+        weight_delta1 = error1 * self.sigmoid(self.hidden_act1, deriv=True)
+        self.weights1 += np.dot(self.inputs.T, weight_delta1
+                                ) * self.learning_rate
 
     def train(self):
         for epoch in range(self.epochs):
@@ -93,12 +92,14 @@ class NeuralNetwork:
                     np.dot(new_input+self.bias, self.weights1)), self.weights2)), self.weights3))
 
 
-NN = NeuralNetwork(inputs, outputs, hidden_nodes=[
-                   101, 3], learning_rate=0.1, epochs=30000)
-NN.train()
+for i in range(3):
+    NN = NeuralNetwork(inputs, outputs, hidden_nodes=[
+        101, 7], learning_rate=0.1, epochs=30000)
+    NN.train()
 
-for i in range(len(test_inputs)):
-    print(NN.predict(test_inputs[i]), " -- Correct answer: ", test_outputs[i])
+    for i in range(len(test_inputs)):
+        print(NN.predict(test_inputs[i]),
+              " -- Correct answer: ", test_outputs[i])
 
 
 plt.figure(figsize=(15, 5))
