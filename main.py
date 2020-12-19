@@ -94,7 +94,7 @@ class NeuralNetwork:
 
 
 NN = NeuralNetwork(inputs, outputs, hidden_nodes=[
-                   101, 19], learning_rate=0.1, epochs=30000)
+                   101, 3], learning_rate=0.1, epochs=30000)
 NN.train()
 
 for i in range(len(test_inputs)):
