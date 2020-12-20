@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-inputs = np.array([[1, 1, 0],
+inputs = np.array([[1, 0, 0],
+                   [1, 1, 0],
                    [1, 0, 1],
                    [0, 1, 1],
                    [0, 1, 0],
@@ -12,12 +13,9 @@ inputs = np.array([[1, 1, 0],
                    [0, 0, 0]
                    ])
 
-test_inputs = np.array([[1, 0, 0],
-                        [1, 0, 1],
-                        [0, 1, 1],
-                        [0, 1, 0]])
 
 outputs = np.array([[0.1],
+                    [0.1],
                     [0.1],
                     [0.2],
                     [0.3],
@@ -27,11 +25,6 @@ outputs = np.array([[0.1],
                     [0.1],
                     [0.2]
                     ])
-
-test_outputs = np.array([[0.1],
-                         [0.1],
-                         [0.2],
-                         [0.3]])
 
 
 class NeuralNetwork:
@@ -89,15 +82,13 @@ class NeuralNetwork:
                     np.dot(new_input+self.bias, self.weights1)), self.weights2)), self.weights3))
 
 
-for i in range(3):
-    NN = NeuralNetwork(inputs, outputs, hidden_nodes=[
+for i in range(len(inputs)):
+    train_data = np.delete(inputs, i, 0)
+    train_output = np.delete(outputs, i, 0)
+    NN = NeuralNetwork(train_data, train_output, hidden_nodes=[
         137, 3], learning_rate=0.09, epochs=30000)
     NN.train()
-
-    for i in range(len(test_inputs)):
-        print(NN.predict(test_inputs[i]),
-              " -- Correct answer: ", test_outputs[i])
-    print('\n')
+    print(NN.predict(inputs[i]), " -- Correct answer: ", outputs[i])
 
 
 plt.figure(figsize=(15, 5))
