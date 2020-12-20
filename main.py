@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# input data
 inputs = np.array([[1, 1, 0],
                    [1, 0, 1],
                    [0, 1, 1],
@@ -12,7 +11,7 @@ inputs = np.array([[1, 1, 0],
                    [1, 1, 1],
                    [0, 0, 0]
                    ])
-# output data
+
 test_inputs = np.array([[1, 0, 0],
                         [1, 0, 1],
                         [0, 1, 1],
@@ -33,8 +32,6 @@ test_outputs = np.array([[0.1],
                          [0.1],
                          [0.2],
                          [0.3]])
-
-# create NeuralNetwork class
 
 
 class NeuralNetwork:
