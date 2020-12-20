@@ -103,7 +103,7 @@ for i in range(len(inputs)):
     train_data = np.delete(inputs, i, 0)
     train_output = np.delete(outputs, i, 0)
     NN = NeuralNetwork(train_data, train_output, hidden_nodes=[
-        137, 101, 3], learning_rate=0.3, epochs=8000)
+        137, 101, 3], learning_rate=0.09, epochs=25000)
     NN.train()
     print(NN.predict(inputs[i]), " -- Correct answer: ", outputs[i])
 
